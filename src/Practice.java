@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -98,7 +99,28 @@ public class Practice {
    * @return A set containing all reachable leaf vertices, or an empty set if vertex is null.
    */
   public <T> Set<Vertex<T>> leaves(Vertex<T> vertex) {
-    return null;
+     Set<Vertex<T>> seen = new HashSet<>();
+     Set<Vertex<T>> leaves = new HashSet<>();
+    leaves(vertex, seen, leaves);
+
+    return leaves;
+  }
+
+   public <T> void leaves(Vertex<T> vertex,  Set<Vertex<T>> seen, Set<Vertex<T>> leaves) {
+    if(vertex == null || seen.contains(vertex)) return;
+
+    List<Vertex<T>> vertexList = vertex.neighbors;
+
+    seen.add(vertex);
+
+    if(vertexList.isEmpty()){
+      leaves.add(vertex);
+    }
+
+    for(Vertex<T> nodeVertex : vertexList){
+      leaves(nodeVertex, seen, leaves);
+    }
+
   }
 
 
